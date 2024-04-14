@@ -92,8 +92,8 @@ namespace Server
 
                     if (msgFromClient == "<Image>")
                     {
-                        // maximum size of image is 524288 bytes
-                        byte[] bytes = new byte[524288];
+                        // maximum size of image is 33000 bytes
+                        byte[] bytes = new byte[33000];
                         // wait for client side to complete writing data
                         Thread.Sleep(1000);
                         sslStream.Read(bytes);
@@ -167,6 +167,7 @@ namespace Server
             }
         }
 
+        #region UpdateThreadSafe
         private void UpdateChatHistoryThreadSafe(string text)
         {
             if (statusAndMsg.InvokeRequired)
@@ -198,6 +199,7 @@ namespace Server
                 statusAndMsg.Paste();
             }
         }
+        #endregion
 
         #region Responsive
 

@@ -66,8 +66,8 @@ namespace Client
 
                     if (msg == "<Image>")
                     {
-                        // maximum size of image is 524288 bytes
-                        byte[] bytes = new byte[524288];
+                        // maximum size of image is 33000 bytes
+                        byte[] bytes = new byte[33000];
                         // wait for server side to complete writing data
                         Thread.Sleep(1000);
                         sslStream.Read(bytes);
@@ -206,6 +206,13 @@ namespace Client
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                var size = new FileInfo(ofd.FileName).Length;
+                if (size >= 32000)
+                {
+                    MessageBox.Show("Please select an image has size <= 32000 bytes");
+                    return;
+                }
+
                 // convert a image into byte array
                 Image image = Image.FromFile(ofd.FileName);
                 var ms = new MemoryStream();
